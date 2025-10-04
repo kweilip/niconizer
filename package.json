@@ -18,11 +18,15 @@
   },
   "files": [
     "dist/app",
-    "dist/bin"
+    "dist/bin",
+    "dist/icon",
+    "dist/content"
   ],
   "scripts": {
-    "build": "npm-run-all clean -p build:*",
+    "build": "npm-run-all clean -p build:* -s postbuild",
     "build:parcel": "parcel build --no-source-maps --public-url .",
+    "build:copy-icons": "node -e \"require('fs').cpSync('src/icon', 'dist/icon', {recursive: true})\"",
+    "postbuild": "node script/fix-parcel-dirname.js",
     "clean": "rimraf dist",
     "clean:package": "rimraf dist/package",
     "dev:content": "parcel serve src/content/index.html",
@@ -92,6 +96,11 @@
       "context": "node",
       "source": "src/bin/index.ts",
       "distDir": "dist/bin"
+    },
+    "content": {
+      "context": "browser",
+      "source": "src/content/index.html",
+      "distDir": "dist/content"
     }
   }
 }

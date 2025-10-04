@@ -1,7 +1,6 @@
-import { Menu, Tray, app } from 'electron'
-import uriToPath from 'file-uri-to-path'
+import path from 'node:path'
 
-import iconUri from '../../icon/icon_16x16.png'
+import { Menu, Tray, app } from 'electron'
 
 import { closeWindow, openWindow } from './window'
 
@@ -12,7 +11,10 @@ import { closeWindow, openWindow } from './window'
 let tray: Tray
 
 export function initTray(): void {
-  tray = new Tray(uriToPath(iconUri))
+  // __dirname in packaged app: resources/app.asar/dist/app
+  // Go up to resources/app.asar/dist, then to icon
+  const iconPath = path.resolve(__dirname, '..', 'icon', 'icon_16x16.png')
+  tray = new Tray(iconPath)
   tray.setContextMenu(
     Menu.buildFromTemplate([
       { label: 'Start', click: start },
