@@ -1,6 +1,7 @@
-import { BrowserWindow, screen } from 'electron'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
-import contentUri from '../content/index.html'
+import { BrowserWindow, screen } from 'electron'
 
 let win: BrowserWindow | undefined
 
@@ -24,7 +25,10 @@ export function openWindow(): void {
 
   win.setIgnoreMouseEvents(true)
   win.setVisibleOnAllWorkspaces(true)
-  win.loadURL(contentUri).catch(error => {
+  // __dirname in packaged app: resources/app.asar/dist/app
+  // Go up to resources/app.asar/dist, then to content
+  const contentPath = path.resolve(__dirname, '..', 'content', 'index.html')
+  win.loadURL(pathToFileURL(contentPath).href).catch(error => {
     throw error
   })
 

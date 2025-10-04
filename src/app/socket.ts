@@ -13,8 +13,8 @@ export async function initServer(port = 25_252) {
         const comment = data.toString()
         console.log('[%s] comment: %s', new Date().toISOString(), comment)
 
-        for (const ws of wss.clients) {
-          ws.emit('n:comment', comment)
+        for (const client of wss.clients) {
+          client.send(comment)
         }
       })
     }

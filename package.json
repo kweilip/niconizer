@@ -18,7 +18,9 @@
   },
   "files": [
     "dist/app",
-    "dist/bin"
+    "dist/bin",
+    "dist/icon",
+    "dist/content"
   ],
   "scripts": {
     "build": "npm-run-all clean -p build:*",
