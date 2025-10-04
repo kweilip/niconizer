@@ -11,6 +11,16 @@
 
 # niconizer
 
+## Run and build locally
+Involves some hacks to work on windows
+
+```ps1
+pnpm i
+pnpm run build
+pnpm start
+wscat -c ws://localhost:25252 -x "hi"
+```
+
 ## What is this
 
 _niconizer_ is a simple desktop application that has two functionalities below.
